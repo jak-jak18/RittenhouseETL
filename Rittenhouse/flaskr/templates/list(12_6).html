@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rittenhouse Python Demonstration</title>
+</head>
+<body>
+{# [START form] #}
+
+{% block content %}
+<h3>Create Entry</h3>
+<a href="/create/create">Create Entries</a>
+<form method="POST" enctype="multipart/form-data">
+    <label for="id">Book ID</label>
+    <div class="form-group">
+        <input type="number" name="id" id="id" value="3" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <input type="text" name="title" id="title" value="Title" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <input type="text" name="author" id="author" value="Author" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <textarea name="description" id="description"
+                  class="form-control" rows="4" cols="20">Enter description</textarea>
+    </div>
+
+    <label for="pages">Pages</label>
+    <div class="form-group">
+        <input type="number" name="pages" id="pages" value="0" class="form-control"/>
+    </div>
+
+    <label for="rating">Rating</label>
+    <div class="form-group">
+        <input type="number" name="rating" id="rating" value="0" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+<h3>Read Entries</h3>
+<!--<button type="submit" class="btn btn-success">Save</button>-->
+<a href="/read">List Entries</a>
+{% for book in books %}
+<div class="media">
+    <div class="media-body">
+        <h4>{{book.title}}</h4>
+        <p>{{book.author}}</p>
+        <p>{{book.descrip}}</p>
+        <p>{{book.pages}}</p>
+        <p>{{book.rating}}</p>
+    </div>
+</div>
+{% else %}
+<p>No books found</p>
+{% endfor %}
+
+<h3>Update Entry</h3>
+{% if update %}
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <input type="text" name="title" id="updateTitle" value="{{update.title}}" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <input type="text" name="author" id="updateAuthor" value="{{update.author}}" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <textarea name="description" id="updateDescription"
+                  class="form-control" rows="6" cols="40">{{update.descrip}}</textarea>
+    </div>
+
+    <label for="pages">Pages</label>
+    <div class="form-group">
+        <input type="number" name="pages" id="updatePages" value="{{update.pages}}" class="form-control"/>
+    </div>
+
+    <label for="rating">Rating</label>
+    <div class="form-group">
+        <input type="number" name="rating" id="updateRating" value="{{update.rating}}" class="form-control"/>
+    </div>
+
+    <label for="id">Book ID</label>
+    <div class="form-group">
+        <input type="number" name="id" id="updateId" value="{{update.idBooks}}" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+</form>
+{% else %}
+<a href="/update">Update Entries</a>
+<form method="POST" enctype="multipart/form-data">
+    <label for="selectAuthor">To search, enter Author</label>
+    <div class="form-group">
+        <input type="text" name="author" id="selectAuthor" value="Author" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-success">Search</button>
+</form>
+{% endif %}
+
+<h3>Delete Entry</h3>
+<a href="/delete">Delete Entry</a>
+<form method="POST" enctype="multipart/form-data">
+    <label for="deleteId">To delete, enter ID</label>
+    <div class="form-group">
+        <input type="number" name="id" id="deleteId" value="0" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-success">Delete</button>
+</form>
+
+{% endblock %}
+{# [END form] #}
+
+
+</body>
+</html>
